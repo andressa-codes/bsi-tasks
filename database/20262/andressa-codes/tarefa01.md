@@ -7,3 +7,13 @@ Banco de dados é o local onde as informações geradas por um determinado siste
 **Q2.** Quais os principais problemas de utilizar Sistemas de Arquivos para armazenagem de dados?
 
 Inconsistência e redundância de dados, dificuldade ao acessar dados, isolamento de dados, problemas de integridade e atomicidade, anomalias no acesso concorrente e problemas de segurança.
+
+**Q3.** Explique as propriedades **ACID**: atomicidade, consistência, isolamento e durabilidade. Para cada propriedade, descreva um exemplo prático no contexto de uma transferência bancária e explique o que aconteceria se o SGBD não garantisse essa propriedade.
+
+A atomicidade é o processo onde duas ou mais operações devem acontecer em conjunto, ou seja, se uma não for realizada a outra também não deve. Ex: Em uma transferência bancária de um determinado valor, esse valor deve ser retirado da conta A para a conta B, caso o valor seja retirado da conta A, porém não depositado na conta B devido a uma falha, essa transferência deve ser desfeita. Se o SGBD não garantisse a atomicidade essa falha não seria desfeita.
+
+Já a consistência é o que garante que os dados permaneçam corretos e respeitem as regras definidas no banco de dados. Ex: Um determinado banco possui a regra onde a conta não pode ficar com saldo negativo e um usuário quer fazer uma transferência de 500 reais tendo somente 400 disponíveis na conta, o SGBD deve impedir essa transferência. Caso o SGBD não garantisse a consistência essa transferência ocorreria e o usuário ficaria com um saldo de -100.
+
+O isolamento por sua vez garante que operações realizadas simultaneamente não interfiram umas nas outras de forma incorreta. Ex: duas transferências podem ser realizadas ao mesmo tempo em uma conta e o SGBD deve garantir que as duas sejam processadas corretamente. Se não garantisse o isolamento uma operação poderia interferir na outra e o saldo final ficaria incorreto.
+
+E por fim a durabilidade é onde uma vez que o SGBD confirma uma operação, essa confirmação permanece salva mesmo que aconteça alguma falha posteriormente. Ex: Um usuário faz uma transferência de 100 reais para outra conta e o banco confirma a transação, porém em algum determinado momento o sistema cai, quando o sistema voltar a funcionar a transferência ainda deverá estar registrada e os saldos deverão continuar atualizados. Se o SGBD não garantisse a durabilidade, uma transferência que já foi confirmada poderia ser perdida após uma falha no sistema.
