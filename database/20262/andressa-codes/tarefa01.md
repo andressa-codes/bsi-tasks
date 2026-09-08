@@ -19,10 +19,10 @@ O isolamento por sua vez garante que operações realizadas simultaneamente não
 E por fim a durabilidade é onde uma vez que o SGBD confirma uma operação, essa confirmação permanece salva mesmo que aconteça alguma falha posteriormente. Ex: Um usuário faz uma transferência de 100 reais para outra conta e o banco confirma a transação, porém em algum determinado momento o sistema cai, quando o sistema voltar a funcionar a transferência ainda deverá estar registrada e os saldos deverão continuar atualizados. Se o SGBD não garantisse a durabilidade, uma transferência que já foi confirmada poderia ser perdida após uma falha no sistema.
 
 **Q4.** Para cada cenário abaixo, indique qual(is) propriedade(s) ACID está(ão) em jogo e **justifique** sua resposta:
-a) Queda de energia no meio de uma transferência deixou o valor debitado da conta de origem, mas não creditado na conta de destino: Atomicidade, porque são necessárias que as duas operações ocorram, então a operação citada deveria ser desfeita.
-b) Dois atendentes debitam, ao mesmo tempo, o mesmo saldo de uma conta: Isolamento, pois as duas operações acontecem ao mesmo tempo em uma mesma conta e, caso o SGBD não intervenha, podem consequentemente causar conflito no saldo.
-c) O sistema confirma a operação, mas após reiniciar o servidor o dado foi perdido: Durabilidade, já que o dado foi perdido mesmo após a confirmação.
-d) Uma transferência que levaria o saldo abaixo do limite permitido é rejeitada pelo banco: Consistência, pois a operação foi rejeitada porque violaria uma regra do banco (saldo abaixo do limite permitido).
+a) Queda de energia no meio de uma transferência deixou o valor debitado da conta de origem, mas não creditado na conta de destino: **Atomicidade, porque são necessárias que as duas operações ocorram, então a operação citada deveria ser desfeita.**
+b) Dois atendentes debitam, ao mesmo tempo, o mesmo saldo de uma conta: **Isolamento, pois as duas operações acontecem ao mesmo tempo em uma mesma conta e, caso o SGBD não intervenha, podem consequentemente causar conflito no saldo.**
+c) O sistema confirma a operação, mas após reiniciar o servidor o dado foi perdido: **Durabilidade, já que o dado foi perdido mesmo após a confirmação.**
+d) Uma transferência que levaria o saldo abaixo do limite permitido é rejeitada pelo banco: **Consistência, pois a operação foi rejeitada porque violaria uma regra do banco (saldo abaixo do limite permitido).**
 
 **Q5.** Um SGBD trata dos seguintes aspectos: **recuperação, integridade, redundância e inconsistência**. Explique cada um deles e descreva como o SGBD os gerencia.
 
@@ -42,24 +42,27 @@ b) Os principais **atributos** de cada entidade.
 c) Os **relacionamentos** entre as entidades (com a cardinalidade, ex.: "um cliente pode ter vários projetos").
 d) Em linguagem natural, as **regras de integridade** (restrições) que o banco de dados deveria garantir, ex.: "apenas um líder por squad", "toda tarefa precisa estar vinculada a um projeto".
 
-**a) Principais entidades**
-Cliente, Projeto, Squad, Membro, Tarefa, Sprint e Release
-**b) Principais atributos**
-**Cliente:** id_cliente, nome, email e telefone
-**Projeto:** id_projeto, nome, descrição, data_inicio e data_fim
-**Squad:** id_squad, nome e objetivo
-**Membro:** id_membro, nome, email, cargo e especialidade
-**Tarefa:** id_tarefa, título, descrição, status, prioridade e prazo
-**Sprint:** id_sprint, nome, data_inicio e data_fim
-**Release:** id_release, versão, data_prevista e status
-**c) Relacionamentos e cardinalidades**
-Um cliente pode ter vários projetos, mas cada projeto pertence a um cliente;
-Um projeto pode ter vários squads, e um squad pode trabalhar em vários projetos;
-Um squad possui vários membros, mas cada membro pertence a um squad;
-Um projeto pode ter várias tarefas, e cada tarefa pertence a um projeto;
-Um projeto pode ter várias sprints, mas cada sprint pertence a um projeto;
-Um projeto pode ter várias releases, mas cada release pertence a um projeto;
-Uma sprint pode possuir várias tarefas, e uma tarefa pode estar vinculada a uma sprint;
+**a) Principais entidades:**  
+Cliente, Projeto, Squad, Membro, Tarefa, Sprint e Release.
+
+**b) Principais atributos:**  
+**Cliente:** id_cliente, nome, email e telefone;  
+**Projeto:** id_projeto, nome, descrição, data_inicio e data_fim;  
+**Squad:** id_squad, nome e objetivo;  
+**Membro:** id_membro, nome, email, cargo e especialidade;  
+**Tarefa:** id_tarefa, título, descrição, status, prioridade e prazo;  
+**Sprint:** id_sprint, nome, data_inicio e data_fim;  
+**Release:** id_release, versão, data_prevista e status;
+
+**c) Relacionamentos e cardinalidades**  
+Um cliente pode ter vários projetos, mas cada projeto pertence a um cliente;  
+Um projeto pode ter vários squads, e um squad pode trabalhar em vários projetos;  
+Um squad possui vários membros, mas cada membro pertence a um squad;  
+Um projeto pode ter várias tarefas, e cada tarefa pertence a um projeto;  
+Um projeto pode ter várias sprints, mas cada sprint pertence a um projeto;  
+Um projeto pode ter várias releases, mas cada release pertence a um projeto;  
+Uma sprint pode possuir várias tarefas, e uma tarefa pode estar vinculada a uma sprint;  
 Uma release pode conter várias tarefas, e uma tarefa pode estar relacionada a uma release;
+
 **d) Regras de integridade**
 O banco deve garantir que todo projeto esteja vinculado a um cliente, além disso todo squad deve possuir membros e apenas um líder técnico, também cada membro deve possuir um cargo definido; Toda tarefa precisa estar vinculada a um projeto e deve possuir um status válido, assim como toda sprint e release devem estar vinculadas a um projeto; As datas de início e fim devem ser válidas e a data de fim não pode ser anterior à data de início, além disso não deve ser permitido cadastrar informações obrigatórias vazias ou duplicadas.
