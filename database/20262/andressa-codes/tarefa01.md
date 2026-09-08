@@ -17,3 +17,9 @@ Já a consistência é o que garante que os dados permaneçam corretos e respeit
 O isolamento por sua vez garante que operações realizadas simultaneamente não interfiram umas nas outras de forma incorreta. Ex: duas transferências podem ser realizadas ao mesmo tempo em uma conta e o SGBD deve garantir que as duas sejam processadas corretamente. Se não garantisse o isolamento uma operação poderia interferir na outra e o saldo final ficaria incorreto.
 
 E por fim a durabilidade é onde uma vez que o SGBD confirma uma operação, essa confirmação permanece salva mesmo que aconteça alguma falha posteriormente. Ex: Um usuário faz uma transferência de 100 reais para outra conta e o banco confirma a transação, porém em algum determinado momento o sistema cai, quando o sistema voltar a funcionar a transferência ainda deverá estar registrada e os saldos deverão continuar atualizados. Se o SGBD não garantisse a durabilidade, uma transferência que já foi confirmada poderia ser perdida após uma falha no sistema.
+
+**Q4.** Para cada cenário abaixo, indique qual(is) propriedade(s) ACID está(ão) em jogo e **justifique** sua resposta:
+a) Queda de energia no meio de uma transferência deixou o valor debitado da conta de origem, mas não creditado na conta de destino: Atomicidade, porque são necessárias que as duas operações ocorram, então a operação citada deveria ser desfeita.
+b) Dois atendentes debitam, ao mesmo tempo, o mesmo saldo de uma conta: Isolamento, pois as duas operações acontecem ao mesmo tempo em uma mesma conta e, caso o SGBD não intervenha, podem consequentemente causar conflito no saldo.
+c) O sistema confirma a operação, mas após reiniciar o servidor o dado foi perdido: Durabilidade, já que o dado foi perdido mesmo após a confirmação.
+d) Uma transferência que levaria o saldo abaixo do limite permitido é rejeitada pelo banco: Consistência, pois a operação foi rejeitada porque violaria uma regra do banco (saldo abaixo do limite permitido).
