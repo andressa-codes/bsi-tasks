@@ -23,3 +23,13 @@ a) Queda de energia no meio de uma transferência deixou o valor debitado da con
 b) Dois atendentes debitam, ao mesmo tempo, o mesmo saldo de uma conta: Isolamento, pois as duas operações acontecem ao mesmo tempo em uma mesma conta e, caso o SGBD não intervenha, podem consequentemente causar conflito no saldo.
 c) O sistema confirma a operação, mas após reiniciar o servidor o dado foi perdido: Durabilidade, já que o dado foi perdido mesmo após a confirmação.
 d) Uma transferência que levaria o saldo abaixo do limite permitido é rejeitada pelo banco: Consistência, pois a operação foi rejeitada porque violaria uma regra do banco (saldo abaixo do limite permitido).
+
+**Q5.** Um SGBD trata dos seguintes aspectos: **recuperação, integridade, redundância e inconsistência**. Explique cada um deles e descreva como o SGBD os gerencia.
+
+A recuperação (recovery) é a capacidade de o banco voltar a um estado consistente após uma falha. Nos sistemas de arquivos, garantir isso era difícil, especialmente por causa dos problemas de atomicidade: operações que precisam acontecer em conjunto e que, em caso de falha, exigem que o banco retorne ao estado anterior. O SGBD assume essa responsabilidade através do controle das estratégias de recuperação, uma das funções atribuídas ao DBA.
+
+A integridade garante que os valores armazenados obedeçam a restrições que mantêm a consistência dos dados. Nos sistemas de arquivos, essas restrições ficavam soltas no código de cada aplicação, o que tornava difícil adicionar ou modificar regras. O SGBD centraliza isso através da especificação de restrições de integridade, também definida pelo DBA.
+
+A redundância é a repetição de dados em diferentes lugares. Nos sistemas de arquivos, isso acontecia porque as informações eram armazenadas diretamente em vários arquivos, sem controle centralizado. O SGBD reduz isso ao oferecer o modelo relacional, onde os dados ficam organizados em tabelas relacionadas entre si, evitando duplicações desnecessárias.
+
+A inconsistência ocorre quando cópias redundantes dos dados divergem ao longo do tempo, ou quando atualizações concorrentes de diferentes programas geram resultados conflitantes. O SGBD resolve isso supervisionando o acesso aos dados e controlando as anomalias de acesso concorrente, algo que era muito difícil de garantir manualmente em sistemas de arquivos.
