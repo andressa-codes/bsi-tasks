@@ -33,3 +33,33 @@ A integridade garante que os valores armazenados obedeçam a restrições que ma
 A redundância é a repetição de dados em diferentes lugares. Nos sistemas de arquivos, isso acontecia porque as informações eram armazenadas diretamente em vários arquivos, sem controle centralizado. O SGBD reduz isso ao oferecer o modelo relacional, onde os dados ficam organizados em tabelas relacionadas entre si, evitando duplicações desnecessárias.
 
 A inconsistência ocorre quando cópias redundantes dos dados divergem ao longo do tempo, ou quando atualizações concorrentes de diferentes programas geram resultados conflitantes. O SGBD resolve isso supervisionando o acesso aos dados e controlando as anomalias de acesso concorrente, algo que era muito difícil de garantir manualmente em sistemas de arquivos.
+
+**Q6.** Considere o cenário de uma **empresa de desenvolvimento de software** que atende outras empresas como clientes. A empresa organiza seu trabalho em **squads** (equipes) compostas por desenvolvedores, testadores, líder técnico, supervisor e gerente de produto. Cada squad resolve **tarefas** (issues) e planeja **releases**, testes e o cronograma de **sprints** (iterações) dos projetos de cada cliente.
+
+Sem utilizar SQL, elabore um **mini-projeto conceitual** do banco de dados dessa empresa, deixando claro:
+a) As principais **entidades** envolvidas (clientes, squads, membros, tarefas, projetos, sprints, releases).
+b) Os principais **atributos** de cada entidade.
+c) Os **relacionamentos** entre as entidades (com a cardinalidade, ex.: "um cliente pode ter vários projetos").
+d) Em linguagem natural, as **regras de integridade** (restrições) que o banco de dados deveria garantir, ex.: "apenas um líder por squad", "toda tarefa precisa estar vinculada a um projeto".
+
+**a) Principais entidades**
+Cliente, Projeto, Squad, Membro, Tarefa, Sprint e Release
+**b) Principais atributos**
+**Cliente:** id_cliente, nome, email e telefone
+**Projeto:** id_projeto, nome, descrição, data_inicio e data_fim
+**Squad:** id_squad, nome e objetivo
+**Membro:** id_membro, nome, email, cargo e especialidade
+**Tarefa:** id_tarefa, título, descrição, status, prioridade e prazo
+**Sprint:** id_sprint, nome, data_inicio e data_fim
+**Release:** id_release, versão, data_prevista e status
+**c) Relacionamentos e cardinalidades**
+Um cliente pode ter vários projetos, mas cada projeto pertence a um cliente;
+Um projeto pode ter vários squads, e um squad pode trabalhar em vários projetos;
+Um squad possui vários membros, mas cada membro pertence a um squad;
+Um projeto pode ter várias tarefas, e cada tarefa pertence a um projeto;
+Um projeto pode ter várias sprints, mas cada sprint pertence a um projeto;
+Um projeto pode ter várias releases, mas cada release pertence a um projeto;
+Uma sprint pode possuir várias tarefas, e uma tarefa pode estar vinculada a uma sprint;
+Uma release pode conter várias tarefas, e uma tarefa pode estar relacionada a uma release;
+**d) Regras de integridade**
+O banco deve garantir que todo projeto esteja vinculado a um cliente, além disso todo squad deve possuir membros e apenas um líder técnico, também cada membro deve possuir um cargo definido; Toda tarefa precisa estar vinculada a um projeto e deve possuir um status válido, assim como toda sprint e release devem estar vinculadas a um projeto; As datas de início e fim devem ser válidas e a data de fim não pode ser anterior à data de início, além disso não deve ser permitido cadastrar informações obrigatórias vazias ou duplicadas.
