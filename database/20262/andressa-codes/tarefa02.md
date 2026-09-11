@@ -7,3 +7,71 @@ Entidades, atributos e relacionamentos. Entidade é o objeto que você quer repr
 **Q2.** Pesquise sobre as várias notações possíveis para Diagramas ER e cite alguns exemplos de notações diferentes para o mesmo conceito (ex.: cardinalidade, entidade subordinada, etc.).
 
 Temos a notação de chan, criada por Peter Chen em 1976. Nela as entidades são representadas em retângulos, os atributos em elipses, os relacionamentos em losangos e a cardinalidade pode ser indicada por números e letras(ex: 1:1, 1:N, N:N). Temos também a Notação Pé de Galinha (Crow's Foot), onde as entidades também são representadas por retângulos, os atributos ficam dentro do retângulo da entidade (organizados em lista), os relacionamentos são representados por linhas e a cardinalidade é indicada por símbolos em suas extremidades.
+
+**Q3.** Construa um Diagrama ER para projetar a base de dados de uma **empresa de desenvolvimento de software** com outras empresas como clientes. A base de dados não deve conter redundância de dados. O modelo ER deve ser representado com um diagrama usando **Mermaid.js**. O modelo deve apresentar, ao menos, entidades, relacionamentos, atributos, identificadores e restrições de cardinalidade. O modelo deve ser feito no nível conceitual, **sem incluir chaves estrangeiras**.
+a) A empresa presta serviços de desenvolvimento de software para outras empresas (clientes). Cada cliente é identificado por um código, um nome e um e-mail de contato.
+b) Os funcionários da empresa trabalham em squads (equipes). Cada funcionário é identificado por um código, um nome e um e-mail, e possui um papel na equipe: desenvolvedor, testador, líder técnico, supervisor ou gerente de produto.
+c) Cada squad é formada por vários funcionários e resolve tarefas (issues). Uma tarefa tem código, descrição, prioridade, situação e uma estimativa em horas. As tarefas pertencem a projetos de um cliente.
+d) O trabalho é organizado em iterações (sprints). Uma squad planeja releases para seus clientes; uma release agrupa um conjunto de tarefas e passa por testes de validação.
+
+```mermaid
+erDiagram
+  CLIENTE {
+    int código
+    string nome
+    string email
+  }
+
+
+  FUNCIONÁRIO {
+    int código
+    string nome
+    string email
+    String papel
+  }
+
+
+  EQUIPE {
+    int código
+    string nome
+  }
+
+
+  TAREFA {
+    int código
+    string descrição
+    string prioridade
+    string situação
+    Time horas
+  }
+
+
+  PROJETO {
+    int código
+    string nome
+    string descrição
+  }
+
+
+  SPRINT {
+    int código
+    date inicio
+    date fim
+  }
+
+
+  RELEASE {
+    int código
+    string versão
+    date data
+  }
+
+	EQUIPE||--|{FUNCIONÁRIO:"trabalha"
+	CLIENTE||--|{PROJETO:"possui"
+	TAREFA}|--||EQUIPE:"resolve"
+	PROJETO||--|{TAREFA:"contém"
+	EQUIPE||--|{SPRINT:"organiza"
+	SPRINT||--|{TAREFA:"possui"
+	EQUIPE||--|{RELEASE:"planeja"
+	RELEASE||--|{TAREFA:"possui"
+```
